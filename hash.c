@@ -3,26 +3,17 @@
 
 struct Node
 {	int data;
-	int key;
 	struct Node *next;
 };
 
 typedef struct Node n;
 
-n *ht[10];
+n ht[10];
 
 int hash(int data)
 {	return data%MAX;
 }
 
-void htinit()
-{	int i;
-	for (i=0; i<MAX; i++)
-	{	(ht[i]) -> data = 0;
-		(ht[i]) -> key = i;
-		(ht[i]) -> next = 0;
-	}
-}
 
 void insert(int ele)
 {	int hele = hash(ele);
@@ -33,7 +24,6 @@ void insert(int ele)
 	{	n *a;
 		a -> data = ele;
 		a -> next = 0;
-		a -> key = hele;
 		tem = ht[hele];
 		while (tem -> next != 0)
 		{	tem = tem -> next;
@@ -71,8 +61,14 @@ int search(int ele)
 
 int main()
 {
-	int ele;
-	htinit();
+	printf("DASDAS");
+	int i,ele;
+	for (i=0;  i < 10; i++)
+	{	
+		printf("DASDASD");
+		ht[i] -> next = 0;
+		ht[i] -> data = 0;
+	}
 	printf("Enter the data to be inserted into hash table: ");
 	while(1)
 	{	scanf("%d", &ele);
