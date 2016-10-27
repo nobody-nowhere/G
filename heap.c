@@ -32,9 +32,6 @@ void heapsort(int *arr, int n)
 }
 
 
-
-
-
 int main()
 {
 	int arr[300], size=0, ele;
