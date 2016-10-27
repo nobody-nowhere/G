@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void heapfiy(int *arr, int n, int i)
+void heapify(int *arr, int n, int i)
 {
 	int largest = i;
 	int l = 2*i + 1;
@@ -20,10 +20,10 @@ void heapfiy(int *arr, int n, int i)
 }
 
 void heapsort(int *arr, int n)
-{	
+{	int i;	
 	for (i= n/2-1; i>=0; i--)
 		heapify(arr, n, i);
-	for (int i=n-1; i>=0; i--)
+	for (i=n-1; i>=0; i--)
 	{	int tem = arr[0];
 		arr[0] = arr[i];
 		arr[i] = tem;
@@ -37,10 +37,18 @@ void heapsort(int *arr, int n)
 
 int main()
 {
-	int arr[] = {12, 11, 13, 5, 6, 7};
-	int n = 6;
-	heapsort(arr, 6);
-	for (int i=0; i<6; i++)
+	int arr[300], size=0, ele;
+	printf("Enter the elements: (Press 0 to stop)");
+	while (1)
+	{	
+		scanf("%d", &ele);
+		if (ele == 0)
+			break;
+		arr[size++] = ele;
+	}		
+	heapsort(arr, size);
+	int i;
+	for (i=0; i<6; i++)
 		printf("%d ", arr[i]);
 }
 
