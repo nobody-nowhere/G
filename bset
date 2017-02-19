@@ -1,0 +1,43 @@
+#!/bin/bash
+
+declare -i maxBrightness
+declare -i curBrightness
+read maxBrightness < /sys/class/backlight/intel_backlight/max_brightness
+read curBrightness < /sys/class/backlight/intel_backlight/brightness
+if [ $1 = '+' ] ; then
+	((curBrightness += maxBrightness/10))
+	if [ $curBrightness -gt $maxBrightness ] ; then
+		echo -e '\nAlready max'
+		echo -e '\nSyntax: bset [+/-/(0-10)]\n'
+		exit 0
+	fi
+	echo $curBrightness > /sys/class/backlight/intel_backlight/brightness
+	exit 0
+fi
+if [ $1 = '-' ] ; then
+	((curBrightness -= maxBrightness/10))
+	if [ $curBrightness -lt 0 ]; then
+		echo -e '\nAlready min'
+		echo -e '\nSyntax: bset [+/-/(0-10)]\n'
+		exit 0
+	fi
+	echo $curBrightness > /sys/class/backlight/intel_backlight/brightness
+	exit 0
+fi
+if [ $1 = 0 ] ; then
+	if [ $1 -eq 0 ] ; then
+		echo 0 > /sys/class/backlight/intel_backlight/brightness
+		exit 0
+	else
+		echo -e '\nSyntax: bset [+/-/(0-10)]\n'
+	fi
+fi
+declare -i n
+n=$1
+if [  $n -le 10  -a  $n -gt 0  ] ; then
+	(( n *= (maxBrightness/10) ))
+	echo $n > /sys/class/backlight/intel_backlight/brightness
+	exit 0
+else
+	echo -e '\nSyntax: bset [+/-/(0-10)]\n'
+fi
